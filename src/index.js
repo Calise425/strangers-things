@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import companyLogo from "./images/market-logo.png";
-
-import { Login, MessageForm, PostForm, Posts, Profile } from "./components";
+import { Login, Register, MessageForm, PostForm, Posts, Profile } from "./components";
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState('false');
+
   return (
     <BrowserRouter>
       <div id="nav">
@@ -22,27 +23,14 @@ const App = () => {
         </nav>
       </div>
 
-      <div id="content">
-        <Route path="/">
-          <Posts />
-        </Route>
-
-        <Route path="/profile">
-          <Profile />
-        </Route>
-
-        <Route path="/login">
-          <Login />
-        </Route>
-
-        <Route path="/post_form">
-          <PostForm />
-        </Route>
-
-        <Route path="/send_message">
-          <MessageForm />
-        </Route>
-      </div>
+      <Switch>
+        <Route exact path="/" component = {Posts}/>
+        <Route path="/profile" component = {Profile}/>
+        <Route path="/login" component = {Login}/>
+        <Route path="/post_form" component = {PostForm}/>
+        <Route path="/send_message" component = {MessageForm}/>
+        <Route path="/register" component = {Register}/>
+      </Switch>
     </BrowserRouter>
   );
 };
