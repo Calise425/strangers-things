@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import companyLogo from "./images/market-logo.png";
-import { Login, Register, MessageForm, PostForm, Posts, Profile } from "./components";
+import {
+  Login,
+  Register,
+  Logout,
+  MessageForm,
+  PostForm,
+  Posts,
+  Profile,
+} from "./components";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState('false');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    token ? setLoggedIn(true) : setLoggedIn(false);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -19,17 +34,66 @@ const App = () => {
           <Link id="profile" to="/profile">
             Profile
           </Link>
-          <Link to="/login">Login</Link>
+          <Link to={loggedIn ? "/logout" : "/login"}>
+            {loggedIn ? "Logout" : "Login"}
+          </Link>
         </nav>
       </div>
 
       <Switch>
-        <Route exact path="/" component = {Posts}/>
-        <Route path="/profile" component = {Profile}/>
-        <Route path="/login" component = {Login}/>
-        <Route path="/post_form" component = {PostForm}/>
-        <Route path="/send_message" component = {MessageForm}/>
-        <Route path="/register" component = {Register}/>
+        <Route exact path="/">
+          <Posts />
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
+        </Route>
+
+        <Route path="/login">
+          <Login
+            username={username}
+            password={password}
+            token={token}
+            loggedIn={loggedIn}
+            setLoggedIn={setLoggedIn}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            setToken={setToken}
+          />
+        </Route>
+
+        <Route path="/register">
+          <Register
+            username={username}
+            password={password}
+            token={token}
+            loggedIn={loggedIn}
+            setLoggedIn={setLoggedIn}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            setToken={setToken}
+          />
+        </Route>
+
+        <Route path="/logout">
+          {loggedIn ? (
+            <Redirect to="/" />
+          ) : (
+            <Logout
+              setToken={setToken}
+              setLoggedIn={setLoggedIn}
+              loggedIn={loggedIn}
+            />
+          )}
+        </Route>
+
+        <Route path="/post_form">
+          <PostForm />
+        </Route>
+
+        <Route path="/send_message">
+          <MessageForm />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
