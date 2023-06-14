@@ -13,13 +13,13 @@ import {
 } from "./components";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(undefined);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    token ? setLoggedIn(true) : setLoggedIn(false);
+    token || localStorage.token ? setLoggedIn(true) : setLoggedIn(false);
   }, []);
 
   return (
@@ -42,11 +42,11 @@ const App = () => {
 
       <Switch>
         <Route exact path="/">
-          <Posts />
+          <Posts loggedIn={loggedIn} token={token} />
         </Route>
 
         <Route path="/profile">
-          <Profile />
+          <Profile token={token} />
         </Route>
 
         <Route path="/login">
@@ -76,11 +76,15 @@ const App = () => {
         </Route>
 
         <Route path="/logout">
-          <Logout />
+          <Logout
+            setLoggedIn={setLoggedIn}
+            setToken={setToken}
+            loggedIn={loggedIn}
+          />
         </Route>
 
         <Route path="/post_form">
-          <PostForm />
+          <PostForm token={token} />
         </Route>
 
         <Route path="/send_message">

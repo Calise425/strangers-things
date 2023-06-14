@@ -28,8 +28,7 @@ const Register = () => {
       console.log(result);
       localStorage.setItem("token", result.data.token);
       setToken(result.data.token);
-      console.log(token);
-      console.log(name);
+      result.data.token ? setLoggedIn(true) : null;
       return result;
     } catch (err) {
       console.error(err);
@@ -38,7 +37,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser({ username }, { password });
+    registerUser(username, password);
   };
 
   return (

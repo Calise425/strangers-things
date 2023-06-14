@@ -1,16 +1,50 @@
 import React, { useState } from "react";
 
-const PostForm = () => {
+const PostForm = ({ token }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [deliver, setDeliver] = useState(false);
 
+  const makePost = async (title, description, price, deliver) => {
+    try {
+      const response = await fetch(
+        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            post: {
+              title: `${title}`,
+              description: `${description}`,
+              price: `${price}`,
+              willDeliver: deliver,
+            },
+          }),
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(title, description, price, deliver);
+    makePost(title, description, price, deliver);
+  };
+
   return (
     <div className="login">
       <h2>Make a New Post</h2>
-      <form>
-        <label>Title:</label>
+      <form onSubmit={handleSubmit}>
+        <label>Title: </label>
         <input
           type="text"
           required
@@ -18,7 +52,7 @@ const PostForm = () => {
           placeholder="Enter a Title"
           onChange={(e) => setTitle(e.target.value)}
         />
-        <label>Description:</label>
+        <label>Description: </label>
         <input
           type="text"
           required
@@ -26,9 +60,9 @@ const PostForm = () => {
           placeholder="Enter Item Description"
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label>Price:</label>
+        <label>Price: </label>
         <input
-          type="number"
+          type="text"
           required
           value={price}
           placeholder="Enter Item Price"
