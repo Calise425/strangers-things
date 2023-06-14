@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Link, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Login = ({
   username,
@@ -49,11 +49,9 @@ const Login = ({
   ) : (
     <div className="login">
       <h2>Login</h2>
-      <BrowserRouter>
-        <p>
-          New User? Register <Link to="/register">here</Link>
-        </p>
-      </BrowserRouter>
+      <p>
+        New User? Register <Link to="/register">here</Link>
+      </p>
 
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
@@ -68,7 +66,7 @@ const Login = ({
         />
         <label>Password:</label>
         <input
-          type="text"
+          type="password"
           required
           value={password}
           placeholder="Enter your password"
@@ -77,9 +75,6 @@ const Login = ({
           onChange={(e) => setPassword(e.target.value)}
         />
         <button>Login</button>
-        <p>
-          {username} {password}
-        </p>
       </form>
     </div>
   );

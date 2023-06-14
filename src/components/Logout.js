@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Redirect } from "react-router-dom";
 
 const Logout = ({ setToken, setLoggedIn, loggedIn }) => {
@@ -9,11 +9,14 @@ const Logout = ({ setToken, setLoggedIn, loggedIn }) => {
     localStorage.removeItem("token");
   };
 
+  if (!loggedIn) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
       <p>Are you sure you want to log out?</p>
       <button onClick={logout}>Yes, Log Out</button>
-      {!loggedIn ? <Redirect to="/" /> : null}
     </>
   );
 };

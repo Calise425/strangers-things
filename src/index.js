@@ -31,8 +31,8 @@ const App = () => {
         </header>
         <nav>
           <Link to="/">Posts</Link>
-          <Link id="profile" to="/profile">
-            Profile
+          <Link to={loggedIn ? "/profile" : "/"}>
+            {loggedIn ? "Profile" : null}
           </Link>
           <Link to={loggedIn ? "/logout" : "/login"}>
             {loggedIn ? "Logout" : "Login"}
@@ -76,15 +76,7 @@ const App = () => {
         </Route>
 
         <Route path="/logout">
-          {loggedIn ? (
-            <Redirect to="/" />
-          ) : (
-            <Logout
-              setToken={setToken}
-              setLoggedIn={setLoggedIn}
-              loggedIn={loggedIn}
-            />
-          )}
+          <Logout />
         </Route>
 
         <Route path="/post_form">

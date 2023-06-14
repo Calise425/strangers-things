@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -44,11 +44,9 @@ const Register = () => {
   return (
     <div className="login">
       <h2>Create an Account</h2>
-      <BrowserRouter>
-        <p>
-          Already a user? Click <Link to="/login">here</Link>
-        </p>
-      </BrowserRouter>
+      <p>
+        Already a user? Click <Link to="/login">here</Link>
+      </p>
 
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
@@ -63,7 +61,7 @@ const Register = () => {
         />
         <label>Password:</label>
         <input
-          type="text"
+          type="password"
           required
           value={password}
           placeholder="Enter your password"
@@ -73,7 +71,7 @@ const Register = () => {
         />
         <label>Confirm Password:</label>
         <input
-          type="text"
+          type="password"
           required
           value={passConfirm}
           placeholder="Re-enter your password"
@@ -83,9 +81,6 @@ const Register = () => {
         />
         <button>Register</button>
         {password !== passConfirm ? <p>Passwords do not match</p> : null}
-        <p>
-          {username} {password}
-        </p>
       </form>
     </div>
   );
