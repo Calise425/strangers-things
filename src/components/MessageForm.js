@@ -1,12 +1,26 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-const MessageForm = () => {
-  const fetchPost = async (id) => {
+const MessageForm = ({ id, token }) => {
+  const [message, setMessage] = useState("");
+  const history = useHistory();
+  const postMessage = async (id) => {
     try {
       const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}`
+        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}/messages`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            message: {
+              content: `${message}`,
+            },
+          }),
+        }
       );
-
       const result = await response.json();
       console.log(result);
       return result;
@@ -15,18 +29,24 @@ const MessageForm = () => {
     }
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    postMessage(id);
+    history.push("/");
+  };
+
   return (
     <div className="message-form">
+      <h2>Enter your message here:</h2>
       <form>
-        <div className="post">
-          <h2 className="post-title">
-            {post.title} | {post.author.username}
-          </h2>
-          <p className="post-description">{post.description}</p>
-          <h3 className="price">{post.price}</h3>
-        </div>
-        <label htmlFor="description"></label>
-        <input type="text" id="description"></input>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        ></input>
+        <button onSubmit={submitHandler}>Send Message</button>
       </form>
     </div>
   );

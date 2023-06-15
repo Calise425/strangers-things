@@ -5,6 +5,8 @@ const Profile = ({ token }) => {
   const [messages, setMessages] = useState([]);
   const [deleted, setDeleted] = useState(0);
 
+  const activePosts = [];
+
   useEffect(() => {
     const myData = async () => {
       try {
@@ -66,6 +68,14 @@ const Profile = ({ token }) => {
             <button id={`${post._id}`} onClick={() => deletePost(post._id)}>
               DELETE
             </button>
+            <h3>Messages regarding this post: </h3>
+            <div>
+              {post.message
+                ? post.message.map((message) => {
+                    <p>{message}</p>;
+                  })
+                : null}
+            </div>
           </div>
         ) : null
       )}

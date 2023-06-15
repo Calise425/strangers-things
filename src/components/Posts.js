@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import MessageForm from "./MessageForm";
-import { Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Posts = ({ loggedIn, token, setId }) => {
   const [posts, setPosts] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,12 +22,17 @@ const Posts = ({ loggedIn, token, setId }) => {
     fetchPosts();
   }, []);
 
+  const handleClick = (postId) => {
+    setId(postId);
+    history.push("/send_message");
+  };
+
   return (
     <section>
       <Link className="prompt" to={loggedIn ? "/post_form" : "/login"}>
         {loggedIn ? "Create a New Post" : "Log in to create a post"}
       </Link>
-      <input type=""></input>
+      <input type="text" />
       <div className="posts">
         {posts.map((post, index) => (
           <div key={index} className="post">
@@ -39,17 +43,10 @@ const Posts = ({ loggedIn, token, setId }) => {
             <h3 className="price">{post.price}</h3>
             <button
               value={post._id}
-              onClick={(e) => {
-                console.log("clicked");
-                setId(e.target.value);
-                return <Redirect to="/send_message" />;
-              }}
+              onClick={(e) => handleClick(e.target.value)}
             >
               Contact Seller
             </button>
-            {/* Button wasn't rendering need to fix this */}
-            {post.isAuthor ? <button>EDIT</button> : null}
-            {post.isAuthor ? <button>DELETE</button> : null}
           </div>
         ))}
       </div>

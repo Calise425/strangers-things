@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import bootstrap from "bootstrap";
 import companyLogo from "./images/market-logo.png";
 import {
   Login,
@@ -11,7 +10,6 @@ import {
   PostForm,
   Posts,
   Profile,
-  // Navbar,
 } from "./components";
 
 const App = () => {
@@ -22,8 +20,17 @@ const App = () => {
   const [id, setId] = useState("");
 
   useEffect(() => {
-    token || localStorage.token ? setLoggedIn(true) : setLoggedIn(false);
-  }, []);
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      setLoggedIn(true);
+    }
+  }, [loggedIn]);
+
+  const setAndStoreToken = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
 
   return (
     <BrowserRouter>
@@ -42,7 +49,6 @@ const App = () => {
           </Link>
         </nav>
       </div>
-      {/* <Navbar /> */}
 
       <Switch>
         <Route exact path="/">
@@ -75,7 +81,7 @@ const App = () => {
             setLoggedIn={setLoggedIn}
             setUsername={setUsername}
             setPassword={setPassword}
-            setToken={setToken}
+            setToken={setAndStoreToken}
           />
         </Route>
 
@@ -92,7 +98,7 @@ const App = () => {
         </Route>
 
         <Route path="/send_message">
-          <MessageForm id={id} />
+          <MessageForm id={id} token={token} />
         </Route>
       </Switch>
     </BrowserRouter>

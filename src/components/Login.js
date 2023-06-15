@@ -30,9 +30,9 @@ const Login = ({
       );
       const result = await response.json();
       console.log(result);
-      setToken(result.data.token);
       result.data.token ? setLoggedIn(true) : null;
       localStorage.setItem("token", token);
+      setToken(result.data.token);
       return result;
     } catch (err) {
       console.error(err);
@@ -47,7 +47,7 @@ const Login = ({
   return loggedIn ? (
     <Redirect to="/" />
   ) : (
-    <div className="login">
+    <div id="form">
       <h2>Login</h2>
       <p>
         New User? Register <Link to="/register">here</Link>
