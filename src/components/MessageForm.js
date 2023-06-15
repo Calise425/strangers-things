@@ -38,15 +38,16 @@ const MessageForm = ({ id, token }) => {
   return (
     <div className="message-form">
       <h2>Enter your message here:</h2>
-      <form>
+      <form onSubmit={submitHandler}>
         <input
+          id="message-input"
           type="text"
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
         ></input>
-        <button onSubmit={submitHandler}>Send Message</button>
+        <button>Send Message</button>
       </form>
     </div>
   );

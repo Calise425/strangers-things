@@ -72,7 +72,7 @@ const Profile = ({ token }) => {
             <div>
               {post.message
                 ? post.message.map((message) => {
-                    <p>{message}</p>;
+                    <p>{message.content}</p>;
                   })
                 : null}
             </div>
