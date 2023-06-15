@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import bootstrap from "bootstrap";
 import companyLogo from "./images/market-logo.png";
 import {
   Login,
@@ -10,6 +11,7 @@ import {
   PostForm,
   Posts,
   Profile,
+  // Navbar,
 } from "./components";
 
 const App = () => {
@@ -17,6 +19,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     token || localStorage.token ? setLoggedIn(true) : setLoggedIn(false);
@@ -39,10 +42,11 @@ const App = () => {
           </Link>
         </nav>
       </div>
+      {/* <Navbar /> */}
 
       <Switch>
         <Route exact path="/">
-          <Posts loggedIn={loggedIn} token={token} />
+          <Posts loggedIn={loggedIn} token={token} setId={setId} />
         </Route>
 
         <Route path="/profile">
@@ -88,7 +92,7 @@ const App = () => {
         </Route>
 
         <Route path="/send_message">
-          <MessageForm />
+          <MessageForm id={id} />
         </Route>
       </Switch>
     </BrowserRouter>
