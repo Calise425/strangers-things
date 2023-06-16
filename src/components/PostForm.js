@@ -41,7 +41,7 @@ const PostForm = ({ token }) => {
   };
 
   return (
-    <div id="form">
+    <div className="form">
       <h2>Make a New Post</h2>
       <form onSubmit={handleSubmit}>
         <label>Title: </label>

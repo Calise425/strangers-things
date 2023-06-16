@@ -47,7 +47,7 @@ const Login = ({
   return loggedIn ? (
     <Redirect to="/" />
   ) : (
-    <div id="form">
+    <div className="form">
       <h2>Login</h2>
       <p>
         New User? Register <Link to="/register">here</Link>

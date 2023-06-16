@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   return (
-    <div className="login">
+    <div className="form">
       <h2>Create an Account</h2>
       <p>
         Already a user? Click <Link to="/login">here</Link>

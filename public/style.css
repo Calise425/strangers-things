@@ -7,7 +7,6 @@
 
 body {
   height: 100vh;
-  background-color: rgb(212, 185, 222);
 }
 
 #app {
@@ -16,7 +15,6 @@ body {
 
 #nav {
   background-color: rgb(64, 44, 193);
-  /* box-shadow: 0px 2px 5px rgb(149, 112, 182); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,7 +22,26 @@ body {
   font-weight: bold;
   font-size: larger;
   color: rgb(186, 149, 255);
-  box-shadow: inset 0 0 20px rgb(57, 57, 57);
+  box-shadow: inset 0 -10px 20px rgb(57, 57, 57);
+}
+
+.content {
+  background-color: rgb(212, 185, 222);
+}
+
+.sub-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.search {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 0 15px 0 15px;
+  flex: 1 0 150px;
 }
 
 .prompt {
@@ -41,7 +58,8 @@ section {
   align-items: center;
 }
 
-nav > a {
+nav > a,
+.sub-nav > a {
   color: rgb(186, 149, 255);
   padding-left: 15px;
   text-decoration: none;
@@ -49,10 +67,16 @@ nav > a {
   margin-right: 10px;
 }
 
-nav > a:hover {
+a:hover {
   color: rgb(230, 173, 255);
   text-shadow: 0px 0px 5px pink;
   text-decoration: underline;
+}
+
+.sub-nav > a {
+  background-color: rgb(64, 44, 193);
+  padding: 5px 15px;
+  border-radius: 2em;
 }
 
 h1 {
@@ -72,12 +96,15 @@ button:hover {
   background-color: lightgrey;
   box-shadow: 0px 5px 5px black;
 }
-#form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  background-color: lavender;
+  border: 2px solid plum;
+  margin: 25px;
+  padding: 20px;
 }
 form {
   display: flex;
@@ -89,6 +116,12 @@ form {
 input {
   border: 1px solid black;
   border-radius: 5px;
+  margin: 5px;
+}
+
+.search > input {
+  flex: 1 0 150px;
+  height: auto;
 }
 
 header {
@@ -118,13 +151,19 @@ header > img {
   margin-bottom: 10px;
 }
 
+.price {
+  color: rgb(64, 64, 253);
+  padding: 5px;
+}
+
 @media (max-width: 768px) {
   .posts {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    margin: 10px 20px;
   }
-  h1 {
+  img {
     display: none;
   }
 }
