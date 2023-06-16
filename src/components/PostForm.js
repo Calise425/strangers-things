@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
-const PostForm = ({ token }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [deliver, setDeliver] = useState(false);
-
+const PostForm = ({
+  token,
+  setTitle,
+  title,
+  description,
+  setDescription,
+  price,
+  setPrice,
+  deliver,
+  setDeliver,
+}) => {
   const makePost = async (title, description, price, deliver) => {
     try {
       const response = await fetch(

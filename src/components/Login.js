@@ -31,7 +31,6 @@ const Login = ({
       const result = await response.json();
       console.log(result);
       result.data.token ? setLoggedIn(true) : null;
-      localStorage.setItem("token", token);
       setToken(result.data.token);
       return result;
     } catch (err) {

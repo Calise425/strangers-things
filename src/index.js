@@ -18,6 +18,10 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [deliver, setDeliver] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -25,7 +29,7 @@ const App = () => {
       setToken(storedToken);
       setLoggedIn(true);
     }
-  }, [loggedIn]);
+  }, []);
 
   const setAndStoreToken = (token) => {
     localStorage.setItem("token", token);
@@ -68,7 +72,7 @@ const App = () => {
             setLoggedIn={setLoggedIn}
             setUsername={setUsername}
             setPassword={setPassword}
-            setToken={setToken}
+            setToken={setAndStoreToken}
           />
         </Route>
 
@@ -94,7 +98,17 @@ const App = () => {
         </Route>
 
         <Route path="/post_form">
-          <PostForm token={token} />
+          <PostForm
+            token={token}
+            title={title}
+            setTitle={setTitle}
+            description={description}
+            setDescription={setDescription}
+            price={price}
+            setPrice={setPrice}
+            deliver={deliver}
+            setDeliver={setDeliver}
+          />
         </Route>
 
         <Route path="/send_message">
