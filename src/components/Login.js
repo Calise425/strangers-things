@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { login } from "../helper_files/apiCalls";
 
 const Login = ({
   username,
@@ -11,36 +12,9 @@ const Login = ({
   loggedIn,
   setLoggedIn,
 }) => {
-  const login = async (name, pass) => {
-    try {
-      const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user: {
-              username: `${name}`,
-              password: `${pass}`,
-            },
-          }),
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      result.data.token ? setLoggedIn(true) : null;
-      setToken(result.data.token);
-      return result;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password);
+    login(username, password, setLoggedIn, setToken);
   };
 
   return loggedIn ? (

@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { fetchPosts } from "../helper_files/apiCalls";
 
 const Posts = ({ loggedIn, token, setId }) => {
   const [posts, setPosts] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(
-          `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts`
-        );
-        const result = await response.json();
-        setPosts(result.data.posts);
-        console.log(result);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchPosts();
+    fetchPosts(setPosts);
   }, []);
 
   const handleClick = (postId) => {

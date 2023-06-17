@@ -44,6 +44,21 @@ body {
   flex: 1 0 150px;
 }
 
+#message-input{
+  outline: 1px solid rgb(72, 8, 109);
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-form > h2 {
+  margin: 10px;
+}
+
 .prompt {
   background-color: lavender;
   text-decoration: none;
@@ -91,6 +106,7 @@ button {
   padding: 5px;
   margin: 10px 0px 0px;
 }
+
 
 button:hover {
   background-color: lightgrey;
@@ -147,6 +163,7 @@ header > img {
   border-radius: 10px;
   background-color: aliceblue;
 }
+
 .post-title {
   margin-bottom: 10px;
 }

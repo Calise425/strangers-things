@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { makePost } from "../helper_files/apiCalls";
 
 const PostForm = ({
   token,
@@ -11,38 +12,10 @@ const PostForm = ({
   deliver,
   setDeliver,
 }) => {
-  const makePost = async (title, description, price, deliver) => {
-    try {
-      const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            post: {
-              title: `${title}`,
-              description: `${description}`,
-              price: `${price}`,
-              willDeliver: deliver,
-            },
-          }),
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      return result;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(title, description, price, deliver);
-    makePost(title, description, price, deliver);
+    makePost(title, description, price, deliver, token);
   };
 
   return (

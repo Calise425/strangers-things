@@ -1,43 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { myData, deletePost } from "../helper_files/apiCalls";
 
 const Profile = ({ token }) => {
   const [posts, setPosts] = useState([]);
   const [messages, setMessages] = useState([]);
   const [deleted, setDeleted] = useState(0);
   const [myId, setMyId] = useState("");
-
-  useEffect(() => {
-    const myData = async () => {
-      try {
-        const response = await fetch(
-          `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/me`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const result = await response.json();
-        setPosts(result.data.posts);
-        setMessages(result.data.messages);
-        setMyId(result.data._id);
-        // console.log(result.data.messages);
-        // console.log(result.data._id);
-        return result;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    myData();
-  }, [deleted]);
-
-  const deletePost = async (id) => {
+  const myData = async (setPosts, setMessages, setMyId, token) => {
     try {
       const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}`,
+        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/me`,
         {
-          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -45,14 +18,18 @@ const Profile = ({ token }) => {
         }
       );
       const result = await response.json();
-      console.log(result.success);
-      result.success ? setDeleted(deleted + 1) : null;
-      console.log(deleted);
+      setPosts(result.data.posts);
+      setMessages(result.data.messages);
+      setMyId(result.data._id);
       return result;
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    myData(setPosts, setMessages, setMyId, token);
+  }, [deleted]);
 
   const editHandler = () => {};
 
@@ -68,7 +45,10 @@ const Profile = ({ token }) => {
             <p className="post-description">{post.description}</p>
             <h3 className="price">{post.price}</h3>
             <button onClick={editHandler}>EDIT</button>
-            <button id={`${post._id}`} onClick={() => deletePost(post._id)}>
+            <button
+              id={`${post._id}`}
+              onClick={() => deletePost(post._id, setDeleted, token)}
+            >
               DELETE
             </button>
             <h3>Messages regarding this post: </h3>
