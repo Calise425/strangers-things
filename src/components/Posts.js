@@ -28,11 +28,17 @@ const Posts = ({ loggedIn, token, setId }) => {
   };
 
   return (
-    <section>
-      <Link className="prompt" to={loggedIn ? "/post_form" : "/login"}>
-        {loggedIn ? "Create a New Post" : "Log in to create a post"}
-      </Link>
-      <input type="text" />
+    <div className="content">
+      <div className="sub-nav">
+        <Link to={loggedIn ? "/post_form" : "/login"}>
+          {loggedIn ? "Create a New Post" : "Log in to create a post"}
+        </Link>
+        <div className="search">
+          <input type="text" />
+          <button>SEARCH</button>
+        </div>
+      </div>
+
       <div className="posts">
         {posts.map((post, index) => (
           <div key={index} className="post">
@@ -50,7 +56,7 @@ const Posts = ({ loggedIn, token, setId }) => {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
