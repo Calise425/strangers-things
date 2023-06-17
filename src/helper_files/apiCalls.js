@@ -23,7 +23,7 @@ const postMessage = async (id) => {
   }
 };
 
-const deletePost = async (id, setDeleted, token) => {
+const deletePost = async (id, setDeleted, deleted, token) => {
   try {
     const response = await fetch(
       `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}`,
@@ -36,9 +36,7 @@ const deletePost = async (id, setDeleted, token) => {
       }
     );
     const result = await response.json();
-    console.log(result.success);
     result.success ? setDeleted(deleted + 1) : null;
-    console.log(deleted);
     return result;
   } catch (err) {
     console.error(err);
@@ -134,4 +132,50 @@ const makePost = async (title, description, price, deliver, token) => {
   }
 };
 
-export { postMessage, deletePost, myData, fetchPosts, login, makePost };
+const updatePost = async (
+  id,
+  token,
+  title,
+  description,
+  price,
+  willDeliver,
+  setSuccess
+) => {
+  try {
+    const response = await fetch(
+      `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          post: {
+            title: title,
+            description: description,
+            price: price,
+            location: "on Request",
+            willDeliver: willDeliver,
+          },
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    result.success ? setSuccess(true) : setSuccess(false);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export {
+  postMessage,
+  deletePost,
+  myData,
+  fetchPosts,
+  login,
+  makePost,
+  updatePost,
+};

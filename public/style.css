@@ -155,7 +155,14 @@ header > img {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-
+#alert{
+  background-color: rgb(212, 185, 222);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 .post {
   border: 2px solid grey;
   padding: 20px;
@@ -180,7 +187,7 @@ header > img {
     flex-wrap: wrap;
     margin: 10px 20px;
   }
-  img {
+  h1 {
     display: none;
   }
 }

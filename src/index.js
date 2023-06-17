@@ -22,6 +22,7 @@ const App = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [deliver, setDeliver] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -60,7 +61,15 @@ const App = () => {
         </Route>
 
         <Route path="/profile">
-          <Profile token={token} />
+          <Profile
+            token={token}
+            setTitle={setTitle}
+            setPrice={setPrice}
+            setDeliver={setDeliver}
+            setDescription={setDescription}
+            setEdit={setEdit}
+            setId={setId}
+          />
         </Route>
 
         <Route path="/login">
@@ -108,6 +117,8 @@ const App = () => {
             setPrice={setPrice}
             deliver={deliver}
             setDeliver={setDeliver}
+            edit={edit}
+            id={id}
           />
         </Route>
 

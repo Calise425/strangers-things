@@ -1,5 +1,6 @@
-import React from "react";
-import { makePost } from "../helper_files/apiCalls";
+import React, { useState } from "react";
+import { makePost, updatePost } from "../helper_files/apiCalls";
+import { useHistory } from "react-router-dom";
 
 const PostForm = ({
   token,
@@ -11,17 +12,33 @@ const PostForm = ({
   setPrice,
   deliver,
   setDeliver,
+  edit,
+  id,
 }) => {
+  const [success, setSuccess] = useState(undefined);
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, description, price, deliver);
     makePost(title, description, price, deliver, token);
+    setTitle("");
+    setDeliver(false);
+    setPrice("");
+    setDescription("");
+    history.push("/profile");
+  };
+
+  const editPost = (e) => {
+    e.preventDefault();
+    updatePost(id, token, title, description, price, deliver, setSuccess);
+
+    // history.push("/");
   };
 
   return (
     <div className="form">
-      <h2>Make a New Post</h2>
-      <form onSubmit={handleSubmit}>
+      {edit ? <h2>Edit Your Posting </h2> : <h2>Make a New Post</h2>}
+      <form id="post-form" onSubmit={edit ? editPost : handleSubmit}>
         <label>Title: </label>
         <input
           type="text"
@@ -55,8 +72,14 @@ const PostForm = ({
           />
           <label htmlFor="deliveryCheckbox">Willing to Deliver?</label>
         </div>
-        <button>Create Post</button>
+        {edit ? <button>Update Post</button> : <button>Create Post</button>}
       </form>
+      {success ? (
+        <div id="alert">
+          <h2>Success!</h2>
+          <p>Your post has been updated</p>
+        </div>
+      ) : null}
     </div>
   );
 };

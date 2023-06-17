@@ -35,12 +35,14 @@ const Posts = ({ loggedIn, token, setId }) => {
             </h2>
             <p className="post-description">{post.description}</p>
             <h3 className="price">{post.price}</h3>
-            <button
-              value={post._id}
-              onClick={(e) => handleClick(e.target.value)}
-            >
-              Contact Seller
-            </button>
+            {loggedIn ? (
+              <button
+                value={post._id}
+                onClick={(e) => handleClick(e.target.value)}
+              >
+                Contact Seller
+              </button>
+            ) : null}
           </div>
         ))}
       </div>

@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { myData, deletePost } from "../helper_files/apiCalls";
+import { deletePost } from "../helper_files/apiCalls";
+import { useHistory } from "react-router-dom";
 
-const Profile = ({ token }) => {
+const Profile = ({
+  setTitle,
+  setDescription,
+  setPrice,
+  setDeliver,
+  setEdit,
+  setId,
+}) => {
   const [posts, setPosts] = useState([]);
   const [messages, setMessages] = useState([]);
   const [deleted, setDeleted] = useState(0);
   const [myId, setMyId] = useState("");
+  const history = useHistory();
+  const token = localStorage.getItem("token");
+
+  //I was able to pull out the other API calls but for some reason this one was not working properly so it stays...
   const myData = async (setPosts, setMessages, setMyId, token) => {
     try {
       const response = await fetch(
@@ -18,6 +30,8 @@ const Profile = ({ token }) => {
         }
       );
       const result = await response.json();
+      console.log(token);
+      console.log(result);
       setPosts(result.data.posts);
       setMessages(result.data.messages);
       setMyId(result.data._id);
@@ -31,7 +45,15 @@ const Profile = ({ token }) => {
     myData(setPosts, setMessages, setMyId, token);
   }, [deleted]);
 
-  const editHandler = () => {};
+  const editHandler = (post) => {
+    setTitle(post.title);
+    setDescription(post.description);
+    setPrice(post.price);
+    setDeliver(post.willDeliver);
+    setEdit(true);
+    setId(post._id);
+    history.push("/post_form");
+  };
 
   return (
     <>
@@ -39,15 +61,13 @@ const Profile = ({ token }) => {
       {posts.map((post, index) =>
         post.active ? (
           <div key={index} className="post">
-            <h2 className="post-title">
-              {post.title} | {post.author.username}
-            </h2>
+            <h2 className="post-title">{post.title}</h2>
             <p className="post-description">{post.description}</p>
             <h3 className="price">{post.price}</h3>
-            <button onClick={editHandler}>EDIT</button>
+            <button onClick={() => editHandler(post)}>EDIT</button>
             <button
               id={`${post._id}`}
-              onClick={() => deletePost(post._id, setDeleted, token)}
+              onClick={() => deletePost(post._id, setDeleted, deleted, token)}
             >
               DELETE
             </button>
