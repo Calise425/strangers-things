@@ -14,7 +14,7 @@ const Logout = ({ setToken, setLoggedIn, loggedIn }) => {
   }
 
   return (
-    <div id="form">
+    <div className="form">
       <p>Are you sure you want to log out?</p>
       <button onClick={logout}>Yes, Log Out</button>
     </div>

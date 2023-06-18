@@ -56,14 +56,14 @@ const Profile = ({
   };
 
   return (
-    <>
+    <div>
       <h2>Your Posts</h2>
       {posts.map((post, index) =>
         post.active ? (
           <div key={index} className="post">
-            <h2 className="post-title">{post.title}</h2>
+            <h3 className="post-title">{post.title}</h3>
             <p className="post-description">{post.description}</p>
-            <h3 className="price">{post.price}</h3>
+            <h4 className="price">{post.price}</h4>
             <button onClick={() => editHandler(post)}>EDIT</button>
             <button
               id={`${post._id}`}
@@ -76,7 +76,7 @@ const Profile = ({
               {post.messages
                 ? post.messages.map((message, index) => {
                     return (
-                      <p key={index}>
+                      <p className="message" key={index}>
                         From: {message.fromUser.username} Message:
                         {message.content}
                       </p>
@@ -87,7 +87,7 @@ const Profile = ({
           </div>
         ) : null
       )}
-      <div id="message-container">
+      <div>
         <h2>Messages You've Sent</h2>
         {messages.map((message, index) => {
           return myId === message.fromUser._id ? (
@@ -98,7 +98,7 @@ const Profile = ({
           ) : null;
         })}
       </div>
-    </>
+    </div>
   );
 };
 

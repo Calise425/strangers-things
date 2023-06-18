@@ -11,6 +11,7 @@ body {
 
 #app {
   height: 100%;
+  font-family: "Merriweather", serif;
 }
 
 #nav {
@@ -40,11 +41,11 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  margin: 0 15px 0 15px;
+  margin: 0 15px 0 35px;
   flex: 1 0 150px;
 }
 
-#message-input{
+#message-input {
   outline: 1px solid rgb(72, 8, 109);
 }
 
@@ -73,8 +74,7 @@ section {
   align-items: center;
 }
 
-nav > a,
-.sub-nav > a {
+nav > a {
   color: rgb(186, 149, 255);
   padding-left: 15px;
   text-decoration: none;
@@ -89,14 +89,22 @@ a:hover {
 }
 
 .sub-nav > a {
+  color: rgb(186, 149, 255);
+  text-decoration: none;
   background-color: rgb(64, 44, 193);
   padding: 5px 15px;
   border-radius: 2em;
+  font-size: 14px;
+  margin-left: 15px;
 }
 
 h1 {
   margin-left: 20px;
   text-decoration: underline;
+}
+
+h2 {
+  margin: 10px 0 0 10px;
 }
 
 button {
@@ -106,7 +114,6 @@ button {
   padding: 5px;
   margin: 10px 0px 0px;
 }
-
 
 button:hover {
   background-color: lightgrey;
@@ -155,7 +162,7 @@ header > img {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-#alert{
+#alert {
   background-color: rgb(212, 185, 222);
   display: flex;
   flex-direction: column;
@@ -163,12 +170,17 @@ header > img {
   align-items: center;
   margin-top: 20px;
 }
-.post {
+.post,
+.messages {
   border: 2px solid grey;
   padding: 20px;
   margin: 10px 5px;
   border-radius: 10px;
   background-color: aliceblue;
+}
+
+.message {
+  margin: 5px 0 0 15px;
 }
 
 .post-title {
