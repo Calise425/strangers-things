@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import companyLogo from "./images/rainbow-square.jpg";
+import companyLogo from "./images/logo-transparent.png";
 import {
   Login,
   Register,
