@@ -31,8 +31,6 @@ const PostForm = ({
   const editPost = (e) => {
     e.preventDefault();
     updatePost(id, token, title, description, price, deliver, setSuccess);
-
-    // history.push("/");
   };
 
   return (

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { fetchPosts } from "../helper_files/apiCalls";
+import Search from "./Search";
 
-const Posts = ({ loggedIn, token, setId }) => {
+const Posts = ({ loggedIn, setId }) => {
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -21,10 +23,7 @@ const Posts = ({ loggedIn, token, setId }) => {
         <Link to={loggedIn ? "/post_form" : "/login"}>
           {loggedIn ? "Create a New Post" : "Log in to create a post"}
         </Link>
-        <div className="search">
-          <input type="text" />
-          <button>SEARCH</button>
-        </div>
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
 
       <div className="posts">
