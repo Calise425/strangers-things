@@ -1,4 +1,4 @@
-const postMessage = async (id) => {
+const postMessage = async (id, token, message, setSuccess) => {
   try {
     const response = await fetch(
       `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts/${id}/messages`,
@@ -17,6 +17,7 @@ const postMessage = async (id) => {
     );
     const result = await response.json();
     console.log(result);
+    result.success ? setSuccess(true) : null;
     return result;
   } catch (err) {
     console.error(err);

@@ -4,12 +4,11 @@ import { postMessage } from "../helper_files/apiCalls";
 
 const MessageForm = ({ id, token }) => {
   const [message, setMessage] = useState("");
-  const history = useHistory();
+  const [success, setSuccess] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    postMessage(id);
-    history.push("/");
+    postMessage(id, token, message, setSuccess);
   };
 
   return (
@@ -27,6 +26,7 @@ const MessageForm = ({ id, token }) => {
         ></textarea>
         <button>Send Message</button>
       </form>
+      {success ? <h2>Message sent!</h2> : null}
     </div>
   );
 };

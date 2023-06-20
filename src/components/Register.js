@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Register = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passConfirm, setPassConfirm] = useState("");
-  const [token, setToken] = useState("");
-
+const Register = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  setToken,
+}) => {
   const registerUser = async (name, pass) => {
     try {
       const response = await fetch(
@@ -38,6 +39,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     registerUser(username, password);
+    setUsername("");
+    setPassword("");
+    setPassConfirm("");
   };
 
   return (

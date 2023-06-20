@@ -77,8 +77,7 @@ const Profile = ({
                 ? post.messages.map((message, index) => {
                     return (
                       <p className="message" key={index}>
-                        From: {message.fromUser.username} Message:
-                        {message.content}
+                        From: {message.fromUser.username} :{message.content}
                       </p>
                     );
                   })
@@ -93,7 +92,7 @@ const Profile = ({
           return myId === message.fromUser._id ? (
             <div className="messages" key={index}>
               <h3>Post: {message.post.title}</h3>
-              <p>Message: {message.content}</p>
+              <p>You: {message.content}</p>
             </div>
           ) : null;
         })}

@@ -7,7 +7,6 @@ const Login = ({
   setUsername,
   password,
   setPassword,
-  token,
   setToken,
   loggedIn,
   setLoggedIn,
@@ -15,6 +14,8 @@ const Login = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     login(username, password, setLoggedIn, setToken);
+    setUsername("");
+    setPassword("");
   };
 
   return loggedIn ? (

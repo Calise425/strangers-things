@@ -7,6 +7,7 @@
 
 body {
   height: 100vh;
+  background-color: rgb(212, 185, 222);
 }
 
 #app {
@@ -47,6 +48,7 @@ body {
 
 #message-input {
   outline: 1px solid rgb(72, 8, 109);
+  border-radius: 2px;
 }
 
 .message-form {
@@ -58,6 +60,12 @@ body {
 
 .message-form > h2 {
   margin: 10px;
+}
+
+.message {
+  outline: 1px solid black;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .prompt {

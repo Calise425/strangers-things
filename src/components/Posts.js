@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { fetchPosts } from "../helper_files/apiCalls";
-import Search from "./Search";
 
 const Posts = ({ loggedIn, setId }) => {
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -17,17 +17,43 @@ const Posts = ({ loggedIn, setId }) => {
     history.push("/send_message");
   };
 
+  const filterPosts = () => {
+    const filtered = posts.filter((post) => {
+      const lowerCaseQuery = searchTerm.toLowerCase();
+      return (
+        post.title.toLowerCase().includes(lowerCaseQuery) ||
+        post.description.toLowerCase().includes(lowerCaseQuery) ||
+        post.author.username.toLowerCase().includes(lowerCaseQuery)
+      );
+    });
+    setFilteredPosts(filtered);
+  };
+
+  const postsToDisplay = searchTerm.length ? filteredPosts : posts;
+
   return (
     <div className="content">
       <div className="sub-nav">
         <Link to={loggedIn ? "/post_form" : "/login"}>
           {loggedIn ? "Create a New Post" : "Log in to create a post"}
         </Link>
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <div className="search">
+          <input
+            id="search"
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              filterPosts();
+              console.log(searchTerm);
+            }}
+          />
+          <button>SEARCH</button>
+        </div>
       </div>
 
       <div className="posts">
-        {posts.map((post, index) => (
+        {postsToDisplay.map((post, index) => (
           <div key={index} className="post">
             <h2 className="post-title">
               {post.title} | {post.author.username}
