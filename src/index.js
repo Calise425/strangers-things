@@ -90,7 +90,6 @@ const App = () => {
             username={username}
             password={password}
             token={token}
-            loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
             setUsername={setUsername}
             setPassword={setPassword}

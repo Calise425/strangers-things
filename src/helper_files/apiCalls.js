@@ -44,21 +44,28 @@ const deletePost = async (id, setDeleted, deleted, token) => {
   }
 };
 
-const myData = async (setPosts, setMessages, setMyId, token) => {
+const registerUser = async (name, pass, setToken, setLoggedIn) => {
   try {
     const response = await fetch(
-      `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/me`,
+      `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/register`,
       {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          user: {
+            username: `${name}`,
+            password: `${pass}`,
+          },
+        }),
       }
     );
     const result = await response.json();
-    setPosts(result.data.posts);
-    setMessages(result.data.messages);
-    setMyId(result.data._id);
+    console.log(result);
+    localStorage.setItem("token", result.data.token);
+    setToken(result.data.token);
+    result.data.token ? setLoggedIn(true) : null;
     return result;
   } catch (err) {
     console.error(err);
@@ -174,7 +181,7 @@ const updatePost = async (
 export {
   postMessage,
   deletePost,
-  myData,
+  registerUser,
   fetchPosts,
   login,
   makePost,

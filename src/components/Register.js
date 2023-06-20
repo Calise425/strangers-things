@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { registerUser } from "../helper_files/apiCalls";
 
 const Register = ({
   username,
@@ -7,38 +8,13 @@ const Register = ({
   password,
   setPassword,
   setToken,
+  setLoggedIn,
 }) => {
-  const registerUser = async (name, pass) => {
-    try {
-      const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user: {
-              username: `${name}`,
-              password: `${pass}`,
-            },
-          }),
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      localStorage.setItem("token", result.data.token);
-      setToken(result.data.token);
-      result.data.token ? setLoggedIn(true) : null;
-      return result;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const [passConfirm, setPassConfirm] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(username, password);
+    registerUser(username, password, setToken, setLoggedIn);
     setUsername("");
     setPassword("");
     setPassConfirm("");
