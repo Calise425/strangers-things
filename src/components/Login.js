@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { login } from "../helper_files/apiCalls";
 
@@ -11,9 +11,11 @@ const Login = ({
   loggedIn,
   setLoggedIn,
 }) => {
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password, setLoggedIn, setToken);
+    login(username, password, setLoggedIn, setToken, setSuccess, setError);
     setUsername("");
     setPassword("");
   };
@@ -50,6 +52,8 @@ const Login = ({
         />
         <button>Login</button>
       </form>
+      {success ? <p>Successfully Logged In</p> : null}
+      {error.length ? <p>{error}</p> : null}
     </div>
   );
 };

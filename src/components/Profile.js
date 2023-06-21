@@ -30,8 +30,6 @@ const Profile = ({
         }
       );
       const result = await response.json();
-      console.log(token);
-      console.log(result);
       setPosts(result.data.posts);
       setMessages(result.data.messages);
       setMyId(result.data._id);

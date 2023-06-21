@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makePost, updatePost } from "../helper_files/apiCalls";
-import { useHistory } from "react-router-dom";
 
 const PostForm = ({
   token,
@@ -16,21 +15,24 @@ const PostForm = ({
   id,
 }) => {
   const [success, setSuccess] = useState(undefined);
-  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    makePost(title, description, price, deliver, token);
+    makePost(title, description, price, deliver, token, setSuccess);
     setTitle("");
     setDeliver(false);
     setPrice("");
     setDescription("");
-    history.push("/profile");
   };
 
   const editPost = (e) => {
     e.preventDefault();
     updatePost(id, token, title, description, price, deliver, setSuccess);
+    setTitle("");
+    setDeliver(false);
+    setPrice("");
+    setDescription("");
+    setEdit(false);
   };
 
   return (
@@ -73,10 +75,17 @@ const PostForm = ({
         {edit ? <button>Update Post</button> : <button>Create Post</button>}
       </form>
       {success ? (
-        <div id="alert">
-          <h2>Success!</h2>
-          <p>Your post has been updated</p>
-        </div>
+        edit ? (
+          <div id="alert">
+            <h2>Success!</h2>
+            <p>Your post has been updated</p>
+          </div>
+        ) : (
+          <div id="alert">
+            <h2>Success!</h2>
+            <p>Your post has been created</p>
+          </div>
+        )
       ) : null}
     </div>
   );

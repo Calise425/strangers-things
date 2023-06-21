@@ -11,10 +11,19 @@ const Register = ({
   setLoggedIn,
 }) => {
   const [passConfirm, setPassConfirm] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(username, password, setToken, setLoggedIn);
+    registerUser(
+      username,
+      password,
+      setToken,
+      setLoggedIn,
+      setSuccess,
+      setError
+    );
     setUsername("");
     setPassword("");
     setPassConfirm("");
@@ -61,6 +70,8 @@ const Register = ({
         <button>Register</button>
         {password !== passConfirm ? <p>Passwords do not match</p> : null}
       </form>
+      {success ? <h2>Successfully registered!</h2> : null}
+      {error.length ? <p>{error}</p> : null}
     </div>
   );
 };

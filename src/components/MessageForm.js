@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { postMessage } from "../helper_files/apiCalls";
 
 const MessageForm = ({ id, token }) => {

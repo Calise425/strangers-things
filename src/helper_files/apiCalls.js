@@ -16,7 +16,6 @@ const postMessage = async (id, token, message, setSuccess) => {
       }
     );
     const result = await response.json();
-    console.log(result);
     result.success ? setSuccess(true) : null;
     return result;
   } catch (err) {
@@ -44,7 +43,14 @@ const deletePost = async (id, setDeleted, deleted, token) => {
   }
 };
 
-const registerUser = async (name, pass, setToken, setLoggedIn) => {
+const registerUser = async (
+  name,
+  pass,
+  setToken,
+  setLoggedIn,
+  setSuccess,
+  setError
+) => {
   try {
     const response = await fetch(
       `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/register`,
@@ -62,10 +68,10 @@ const registerUser = async (name, pass, setToken, setLoggedIn) => {
       }
     );
     const result = await response.json();
-    console.log(result);
+    !result.success ? setError(result.error.message) : null;
     localStorage.setItem("token", result.data.token);
     setToken(result.data.token);
-    result.data.token ? setLoggedIn(true) : null;
+    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     return result;
   } catch (err) {
     console.error(err);
@@ -79,13 +85,19 @@ const fetchPosts = async (setPosts) => {
     );
     const result = await response.json();
     setPosts(result.data.posts);
-    console.log(result);
   } catch (err) {
     console.error(err);
   }
 };
 
-const login = async (name, pass, setLoggedIn, setToken) => {
+const login = async (
+  name,
+  pass,
+  setLoggedIn,
+  setToken,
+  setSuccess,
+  setError
+) => {
   try {
     const response = await fetch(
       `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/users/login`,
@@ -103,8 +115,8 @@ const login = async (name, pass, setLoggedIn, setToken) => {
       }
     );
     const result = await response.json();
-    console.log(result);
-    result.data.token ? setLoggedIn(true) : null;
+    !result.success ? setError(result.error.message) : null;
+    result.data.token ? setLoggedIn(true) && setSuccess(true) : null;
     setToken(result.data.token);
     return result;
   } catch (err) {
@@ -112,7 +124,14 @@ const login = async (name, pass, setLoggedIn, setToken) => {
   }
 };
 
-const makePost = async (title, description, price, deliver, token) => {
+const makePost = async (
+  title,
+  description,
+  price,
+  deliver,
+  token,
+  setSuccess
+) => {
   try {
     const response = await fetch(
       `https://strangers-things.herokuapp.com/api/2303-ftb-et-web-pt/posts`,
@@ -133,7 +152,7 @@ const makePost = async (title, description, price, deliver, token) => {
       }
     );
     const result = await response.json();
-    console.log(result);
+    result.success ? setSuccess(true) : setSuccess(false);
     return result;
   } catch (err) {
     console.error(err);
@@ -170,7 +189,6 @@ const updatePost = async (
       }
     );
     const result = await response.json();
-    console.log(result);
     result.success ? setSuccess(true) : setSuccess(false);
     return result;
   } catch (err) {

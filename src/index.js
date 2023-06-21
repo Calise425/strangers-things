@@ -117,6 +117,7 @@ const App = () => {
             deliver={deliver}
             setDeliver={setDeliver}
             edit={edit}
+            setEdit={setEdit}
             id={id}
           />
         </Route>
